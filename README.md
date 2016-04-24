@@ -3,7 +3,7 @@ Import your time wasted from Bierdopje.com to Seriesfeed.com
 <BR/>
 Enjoy.
 <BR/><BR/>
-Version <strong>0.2</strong> (BETA!)
+Version <strong>0.2.1</strong> (BETA!)
 
 Screenshots:<BR/>
 <img src="https://raw.githubusercontent.com/TomONeill/Seriesfeed-Import-Time-Wasted/master/Screenshots/v0.2-1.png" alt="Version 0.2" width="250px" />

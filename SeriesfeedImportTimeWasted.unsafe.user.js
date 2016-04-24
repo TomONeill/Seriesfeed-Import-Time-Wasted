@@ -1,7 +1,7 @@
 ﻿// ==UserScript==
 // @name         Seriesfeed Import Time Wasted
 // @namespace    http://www.seriesfeed.com
-// @version      0.2.chrome
+// @version      0.2.1
 // @description  Allows you to import your time wasted from Bierdopje.com.
 // @match        http://*.seriesfeed.com/*
 // @run-at       document-start
@@ -409,11 +409,10 @@ $(function() {
 
 								getBierdopjeShowSeasonEpisodesBySeasonUrl(bdSeasonUrl).then(function(bdShowEpisodes) {
 									var episodeList = [];
-									var episodesLength = bdShowEpisodes.length;
 									var tableEpisodes = $('#show_' + sfSeriesId + 'episodes');
 									var bdShowEpisodesLength = bdShowEpisodes.length;
 									
-									tableEpisodes.html("1 van " + (episodesLength - 1));
+									tableEpisodes.html("1 van " + (bdShowEpisodesLength - 1));
 
 									function setTimeWastedSeasonEpisode(ei) {
 										return new Promise(function(resolve) {
@@ -466,7 +465,7 @@ $(function() {
 														addSeasonStatus(sfSeriesId, seasonId, type, check);
 													}
 													// All episodes aquired?
-													else if (bdShowEpisodes.length - 1 === aquiredList.length) {
+													if (bdShowEpisodes.length - 1 === aquiredList.length) {
 														allAquired = true;
 														var type   = "obtain";
 														var check  = true;
@@ -489,7 +488,7 @@ $(function() {
 														}
 													}
 												}
-												tableEpisodes.html(ei + " van " + (episodesLength - 1));
+												tableEpisodes.html(ei + " van " + (bdShowEpisodesLength - 1));
 											});
 
 											var progress = (index/seriesLength) * 100;
@@ -499,10 +498,10 @@ $(function() {
 										});
 									}
 									
-									var MAX_ASYNC_CALLS = 5;
+									var MAX_ASYNC_CALLS = 4;
 									var current_async_calls = 0;
 
-									Promise.resolve(0).then(function loop(i) {
+									Promise.resolve(1).then(function loop(i) {
 										if (current_async_calls < MAX_ASYNC_CALLS) {
 											if (i < bdShowEpisodesLength) {
 												current_async_calls += 1;
