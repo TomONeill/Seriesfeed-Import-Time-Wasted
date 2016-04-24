@@ -1,0 +1,8 @@
+Seriesfeed Import Time Wasted Changelog
+
+Version 0.2 (24 April 2016)
+Added promises to go through some synchronous episode tagging.
+Bugfixes etc.
+
+Version 0.1 (10 April 2016)
+First working draft (internal release).
