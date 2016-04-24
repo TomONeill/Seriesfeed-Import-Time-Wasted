@@ -15,3 +15,10 @@ Screenshots:<BR/>
 # Which version to use?
 
 I recommend you use SeriesfeedImportTimeWasted.user.js which does a fine job, but may make some errors. Checking afterwards is recommended. If you don't want to wait a long time, use the unsafe version (Chrome recommended). If you want to be completely safe, use the safe version. This version takes you the longest, though.
+
+
+Check out other userscripts for Seriesfeed by me:<BR/>
+<ul>
+    <li><A HREF="https://github.com/TomONeill/Seriesfeed-Import-Time-Wasted">Import Time Wasted</A></li>
+    <li><A HREF="https://github.com/TomONeill/Seriesfeed-Move">Move cards on frontpage</A></li>
+</ul>
