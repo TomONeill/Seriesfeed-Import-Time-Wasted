@@ -16,6 +16,9 @@ At the last step, the actual importing is being done. Every episode of every ser
 <img src="https://raw.githubusercontent.com/TomONeill/Seriesfeed-Import-Time-Wasted/master/Screenshots/v0.2-2.png" alt="Version 0.2" width="250px" />
 <img src="https://raw.githubusercontent.com/TomONeill/Seriesfeed-Import-Time-Wasted/master/Screenshots/v0.2-3.png" alt="Version 0.2" width="250px" />
 
+# Warning
+Do not use this userscript on series in which you have episodes obtained/seen manually or before with this userscript. Executing another import on them will uncheck those you have already checked before.
+
 # Which version to use?
 I recommend you use <strong>SeriesfeedImportTimeWasted.safe.user.js</strong> which does a fine job, but may be slow.<BR />
 Version SeriesfeedImportTimeWasted.user.js does two requests a time, which is a bit faster, but may skip some episodes accidentally.<BR />
