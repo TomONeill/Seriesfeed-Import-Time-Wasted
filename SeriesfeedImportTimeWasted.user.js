@@ -245,7 +245,7 @@ $(function() {
 				});
 			}
 			
-			var MAX_ASYNC_CALLS = 14;
+			var MAX_ASYNC_CALLS = 2;
 			var current_async_calls = 0;
 			var totalTimeWasted = (timeWastedLength - 1);
 			
