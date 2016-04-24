@@ -1,4 +1,4 @@
-﻿// ==UserScript==
+// ==UserScript==
 // @name         Seriesfeed Import Time Wasted
 // @namespace    http://www.seriesfeed.com
 // @version      0.2.1
@@ -498,7 +498,7 @@ $(function() {
 										});
 									}
 									
-									var MAX_ASYNC_CALLS = 2;
+									var MAX_ASYNC_CALLS = 1;
 									var current_async_calls = 0;
 
 									Promise.resolve(1).then(function loop(i) {
