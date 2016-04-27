@@ -26,7 +26,7 @@ Do not use this userscript on series in which you have episodes obtained/seen (m
 # Other userscripts
 Check out other userscripts for Seriesfeed by me:<BR/>
 <ul>
-    <li><A HREF="https://github.com/TomONeill/Seriesfeed-Import-Time-Wasted">Import Time Wasted</A></li>
+    <li><A HREF="https://github.com/TomONeill/Seriesfeed-Importer">Import favourites</A></li>
     <li><A HREF="https://github.com/TomONeill/Seriesfeed-Move">Move cards on frontpage</A></li>
 </ul>
 
