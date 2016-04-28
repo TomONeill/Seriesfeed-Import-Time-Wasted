@@ -28,6 +28,7 @@ Check out other userscripts for Seriesfeed by me:<BR/>
 <ul>
     <li><A HREF="https://github.com/TomONeill/Seriesfeed-Importer">Import favourites</A></li>
     <li><A HREF="https://github.com/TomONeill/Seriesfeed-Move">Move cards on frontpage</A></li>
+    <li><A HREF="https://github.com/TomONeill/Seriesfeed-Season-Separator">Season Separator</A></li>
 </ul>
 
 # About userscripts
