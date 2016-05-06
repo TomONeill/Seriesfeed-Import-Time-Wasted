@@ -17,9 +17,6 @@ At the last step, the actual importing is being done. Every episode of every ser
 <img src="https://raw.githubusercontent.com/TomONeill/Seriesfeed-Import-Time-Wasted/master/Screenshots/v0.2-2.png" alt="Version 0.2" width="250px" />
 <img src="https://raw.githubusercontent.com/TomONeill/Seriesfeed-Import-Time-Wasted/master/Screenshots/v0.2-3.png" alt="Version 0.2" width="250px" />
 
-# Warning
-Do not use this userscript on series in which you have episodes obtained/seen (manually). Executing an(other) import on them will uncheck those you have already checked before.
-
 # Changelog
 <A HREF="https://raw.githubusercontent.com/TomONeill/Seriesfeed-Import-Time-Wasted/master/Changelog.txt">View changelog</A>
 
