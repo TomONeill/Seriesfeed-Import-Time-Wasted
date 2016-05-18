@@ -9,3 +9,7 @@ because now there are a lot of requests that are NOT needed.
 This causes the script to be slower than it needs to be,
 plus, Seriesfeed's database is receiving more load
 than needed.
+
+# Stop converting shows which were not selected
+All shows from the time wasted section are being converted to a
+usable id, name and slug, even though they were not selected.
