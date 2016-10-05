@@ -3,6 +3,7 @@
 // @namespace    http://www.seriesfeed.com
 // @version      0.2.1
 // @description  Allows you to import your time wasted from Bierdopje.com.
+// @updateURL 	 https://github.com/TomONeill/Seriesfeed-Import-Time-Wasted/raw/master/SeriesfeedImportTimeWasted.user.js
 // @match        http://*.seriesfeed.com/*
 // @run-at       document-start
 // @grant        unsafeWindow
