@@ -5,6 +5,8 @@ Enjoy.
 <BR/><BR/>
 Version <strong>0.2.1</strong> (BETA!)
 
+<A HREF="https://github.com/TomONeill/Seriesfeed-Import-Time-Wasted/raw/master/SeriesfeedImportTimeWasted.user.js">INSTALL</A>
+
 # Information
 With this userscript, you can import your time wasted from Bierdopje.com to Seriesfeed.com.<BR />
 You'll find a new button under the "Algemeen" menu item called "TW Importeren".<BR />
