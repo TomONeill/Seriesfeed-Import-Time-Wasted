@@ -1,9 +1,9 @@
-# Seriesfeed-Import-Time-Wasted
+# Seriesfeed Import Time Wasted
 Import your time wasted from Bierdopje.com to Seriesfeed.com
 <br/>
 Enjoy.
 <br/><br/>
-Version <strong>0.2.2</strong> (soon out of bèta!)
+Version <strong>0.2.2</strong>
 
 <a HREF="https://github.com/TomONeill/Seriesfeed-Import-Time-Wasted/raw/master/SeriesfeedImportTimeWasted.user.js">INSTALL</a>*
 
