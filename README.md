@@ -8,9 +8,9 @@ Version <strong>0.2.2</strong> (soon out of bèta!)
 <a HREF="https://github.com/TomONeill/Seriesfeed-Import-Time-Wasted/raw/master/SeriesfeedImportTimeWasted.user.js">INSTALL</a>*
 
 \* <strong>Requires a browser extension:</strong><br />
-Mozilla FireFox: <a href="https://addons.mozilla.org/firefox/addon/greasemonkey/">Greasemonkey</a><br />
-Google Chrome: <a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo">Tampermonkey</a><br />
-Other browsers: <a href="https://tampermonkey.net/">Tampermonkey</a>
+- Mozilla FireFox: <a href="https://addons.mozilla.org/firefox/addon/greasemonkey/">Greasemonkey</a><br />
+- Google Chrome: <a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo">Tampermonkey</a><br />
+- Other browsers: <a href="https://tampermonkey.net/">Tampermonkey</a>
 
 # What does this do?
 With this userscript you can import your seen/obtained (time wasted) from Bierdopje.com to Seriesfeed.com.
