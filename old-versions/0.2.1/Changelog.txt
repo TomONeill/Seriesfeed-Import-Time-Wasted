@@ -1,8 +1,5 @@
 Seriesfeed Import Time Wasted Changelog
 
-Version 0.2.2 (29 November 2016)
-Toggle all fix and improved speed.
-
 Version 0.2.1 (24 April 2016)
 Bierdopje episode-table reading fix.
 Toggle all fix (to release load of Seriesfeed's database).

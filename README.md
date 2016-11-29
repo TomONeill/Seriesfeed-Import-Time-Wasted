@@ -3,12 +3,19 @@ Import your time wasted from Bierdopje.com to Seriesfeed.com
 <BR/>
 Enjoy.
 <BR/><BR/>
-Version <strong>0.2.1</strong> (BETA!)
+Version <strong>0.2.2</strong> (soon out of bèta!)
 
-<A HREF="https://github.com/TomONeill/Seriesfeed-Import-Time-Wasted/raw/master/SeriesfeedImportTimeWasted.user.js">INSTALL</A>
+<A HREF="https://github.com/TomONeill/Seriesfeed-Import-Time-Wasted/raw/master/SeriesfeedImportTimeWasted.user.js">INSTALL</A>*
 
-# Information
-With this userscript, you can import your time wasted from Bierdopje.com to Seriesfeed.com.<BR />
+* Required a browser extension:
+Mozilla FireFox: <a href="https://addons.mozilla.org/firefox/addon/greasemonkey/">Greasemonkey</a>
+Google Chrome: <a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo">Tampermonkey</a>
+Other browsers: <a href="https://tampermonkey.net/">Tampermonkey</a>
+
+# What does this do?
+With this userscript you can import your seen/obtained (time wasted) from Bierdopje.com to Seriesfeed.com.
+
+# How do I use it?
 You'll find a new button under the "Algemeen" menu item called "TW Importeren".<BR />
 In the first step, the userscript checks up on which account you're logged into on Bierdopje.com. If this information is correct, proceed to the next step. If not, log in and refresh the page.<BR />
 At step 2 your time wasted is being checked on availability. This means every single series is being checked on existance on Seriesfeed. Series which are not available on Seriesfeed yet are listed with an 'x'. You can request those and check back later. Check the checkboxes on the series you want the Time Wasted to be imported from and proceed.<BR />
@@ -31,9 +38,8 @@ Check out other userscripts for Seriesfeed by me:<BR/>
 </ul>
 
 # About userscripts
-This is a userscript which you can use in combination with a browser extension to inject JavaScript (Greasemonkey, Tampermonkey).
+This is a userscript which you can use in combination with a browser extension to inject JavaScript (<a href="https://addons.mozilla.org/firefox/addon/greasemonkey/">Greasemonkey</a> - FireFox, <a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo">Tampermonkey</a> - Chrome).
 This means new functionality can be added, or bugs can be fixed on (discontinued) websites.<BR />
-DO NOT INSTALL USERSCRIPTS YOU DON'T TRUST! Check always for urls like the @domain tag at the top of a script before installation. Sensitive data (like usernames, passwords, or banktransactions even), may be sent to other sources.
 
 # Donate
 If you like my work so much you feel like doing something nice for me, a complete stranger of the internet, you can.<BR />
