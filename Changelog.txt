@@ -1,5 +1,8 @@
 Seriesfeed Import Time Wasted Changelog
 
+Version 0.2.1 (again) (30 November 2016)
+Reverted to 0.2.1 due to importing issues.
+
 Version 0.2.2 (29 November 2016)
 Toggle all fix and improved speed.
 

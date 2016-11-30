@@ -1,8 +1,9 @@
 ﻿// ==UserScript==
 // @name         Seriesfeed Import Time Wasted
 // @namespace    http://www.seriesfeed.com
-// @version      0.2.2
+// @version      0.2.1
 // @description  Allows you to import your time wasted from Bierdopje.com.
+// @updateURL 	 https://github.com/TomONeill/Seriesfeed-Import-Time-Wasted/raw/master/SeriesfeedImportTimeWasted.user.js
 // @match        http://*.seriesfeed.com/*
 // @run-at       document-start
 // @grant        unsafeWindow
@@ -302,7 +303,7 @@ $(function() {
 			seriesTable.after(nextStep);
 
 			$('#select-all').on('click', function() {
-				toggleAllCheckboxes(this.checked);
+				toggleAllCheckboxes();
 			});
 
 			$('.check').on('click', function() {
@@ -708,28 +709,10 @@ $(function() {
 		return a;
 	}
 	
-	function toggleAllCheckboxes(isChecked) {
-		if (isChecked) {
-			$('.check').each(function () {
-				var currentCheckbox = $(this);
-				
-				currentCheckbox.parent().parent().children()[0].checked = true;
-				
-				if (!currentCheckbox.hasClass('checked')) {
-					currentCheckbox.addClass('checked');
-				}
-			});
-		} else {
-			$('.check').each(function () {
-				var currentCheckbox = $(this);
-				
-				currentCheckbox.parent().parent().children()[0].checked = false;
-				
-				if (currentCheckbox.hasClass('checked')) {
-					currentCheckbox.removeClass('checked');
-				}
-			});
-		}
+	function toggleAllCheckboxes() {
+		$('.check').each(function () {
+            $(this).click();
+		});
 	}
 	
 	function getCurrentBierdopjeUsername() {
