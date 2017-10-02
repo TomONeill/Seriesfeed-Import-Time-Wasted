@@ -1,10 +1,10 @@
 ﻿// ==UserScript==
 // @name         Seriesfeed Import Time Wasted
-// @namespace    http://www.seriesfeed.com
-// @version      0.2.1
+// @namespace    https://www.seriesfeed.com
+// @version      0.2.2
 // @description  Allows you to import your time wasted from Bierdopje.com.
 // @updateURL 	 https://github.com/TomONeill/Seriesfeed-Import-Time-Wasted/raw/master/SeriesfeedImportTimeWasted.user.js
-// @match        http://*.seriesfeed.com/*
+// @match        https://*.seriesfeed.com/*
 // @run-at       document-start
 // @grant        unsafeWindow
 // @grant        GM_xmlhttpRequest
@@ -22,10 +22,11 @@
 
 $(function() {
     // Add menu item to navigator.
-    $('.nav .dropdown .dropdown-menu:eq(1)').append('<li><a href="/series/import/bierdopje/time-wasted">TW Importeren</a></li>');
+    $('<li><a href="/series/import/bierdopje/time-wasted">TW Importeren</a></li>').insertAfter($('li > a[href="/series/search"]').parent());
     
-	if (window.location.href === "http://www.seriesfeed.com/series/import/bierdopje/time-wasted") {
-        var col         = $('.col-md-12').html('');
+	if (window.location.href === "https://www.seriesfeed.com/series/import/bierdopje/time-wasted") {
+        var col         = $('<div class="wrapper dashboard bg"><div class="container content"></div></div>')
+		$('.contentWrapper > div.container').replaceWith(col);
         var head        = $('<h1></h1>');
 		var cardHolder  = $('<div></div>').addClass("col-md-6");
 		var card        = $('<div></div>').addClass("blog-left cardStyle cardTable");
@@ -116,7 +117,7 @@ $(function() {
 		+ 'of het onderstaande account waarop je nu bent ingelogd op '
 		+ '<a href="http://www.bierdopje.com/">www.bierdopje.com</a> het '
 		+ 'account is waarvan je wilt importeren.';
-		var userProfile   = userFactory("Laden...", "http://static.seriesfeed.com/avatars/3d02f5f37e466f1a295a6bca5c0e3f542e43394a.png");
+		var userProfile   = userFactory("Laden...", "https://www.seriesfeed.com/static/avatars/3d02f5f37e466f1a295a6bca5c0e3f542e43394a.png");
 
 		stepTitle.html(titleCardText);
 		stepcontent.html(innerCardText);
@@ -130,7 +131,7 @@ $(function() {
 			getBierdopjeAvatarUrlByUsername(username).then(function(avatarUrl) {
 				var login = '<a href="http://www.bierdopje.com/" target="_blank">Inloggen</a>';
 				if (!avatarUrl) {
-					avatarUrl = 'http://static.seriesfeed.com/avatars/3d02f5f37e466f1a295a6bca5c0e3f542e43394a.png';
+					avatarUrl = 'https://seriesfeed.com/static/avatars/3d02f5f37e466f1a295a6bca5c0e3f542e43394a.png';
 				}
 
 				if (!username) {
@@ -202,8 +203,8 @@ $(function() {
 								var sfSeriesId   = sfShowData.id;
 								var sfSeriesName = sfShowData.name;
 								var sfSeriesSlug = sfShowData.slug;
-								var sfSeriesUrl  = 'http://www.seriesfeed.com/series/';
-								var seriesUrl    = "http://www.seriesfeed.com/series/" + sfSeriesSlug;
+								var sfSeriesUrl  = 'https://www.seriesfeed.com/series/';
+								var seriesUrl    = "https://www.seriesfeed.com/series/" + sfSeriesSlug;
 								var status       = true;
 
 								if (!sfSeriesName) {
@@ -821,8 +822,11 @@ $(function() {
 	function getSeriesfeedShowDataByTVDBId(tvdbId){
 		return $.ajax({
 			type: "POST",
-			url: "/ajax.php?action=getShowId",
-			data: {tvdb_id: tvdbId},
+			url: "/ajax/serie/find-by", // we should use SeriesFeed.ajaxEndPoints.getEndPoint('ajax.serie.find.by'); instead if available
+			data: {
+				type: 'tvdb_id',
+				data: tvdbId
+			},
 			dataType: "json"
 		});
 	}
@@ -830,10 +834,11 @@ $(function() {
 	function getEpisodeId(seriesId, episodeTag) {
 		return $.ajax({
 			type: "POST",
-			url: "/ajax.php?action=getEpisodeId",
+			url: "/ajax/serie/episode/find-by", // we should use SeriesFeed.ajaxEndPoints.getEndPoint('ajax.serie.episode.find.by'); instead if available
 			data: {
+				type: 'series_season_episode',
 				serie: seriesId,
-				season_episode: episodeTag
+				data: episodeTag
 			},
 			dataType: "json"
 		});
@@ -842,7 +847,7 @@ $(function() {
 	function addSeasonStatus(seriesId, seasonId, type, check) {
 		return $.ajax({
 			type: "POST",
-			url: "/ajax.php?action=toggleAll",
+			url: "/ajax/serie/episode/mark/all", // we should use SeriesFeed.ajaxEndPoints.getEndPoint('ajax.serie.episode.mark.all'); instead if available
 			data: {
 				series: seriesId,
 				season: seasonId,
@@ -856,7 +861,7 @@ $(function() {
 	function addEpisodeStatus(episodeId, type) {
 		return $.ajax({
 			type: "POST",
-			url: "/ajax.php?action=toggleEpisode",
+			url: "/ajax/serie/episode/mark/", // we should use SeriesFeed.ajaxEndPoints.getEndPoint('ajax.serie.episode.mark'); instead if available
 			data: {
 				episode: episodeId,
 				type: type,
