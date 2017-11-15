@@ -3,14 +3,11 @@ Import your time wasted from Bierdopje.com to Seriesfeed.com
 <br/>
 Enjoy.
 <br/><br/>
-Version <strong>0.2.1</strong>
+Version <strong>0.2.3</strong>
 
 <a HREF="https://github.com/TomONeill/Seriesfeed-Import-Time-Wasted/raw/master/SeriesfeedImportTimeWasted.user.js">INSTALL</a>*
 
-\* <strong>Requires a browser extension:</strong><br />
-- Mozilla FireFox: <a href="https://addons.mozilla.org/firefox/addon/greasemonkey/">Greasemonkey</a><br />
-- Google Chrome: <a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo">Tampermonkey</a><br />
-- Other browsers: <a href="https://tampermonkey.net/">Tampermonkey</a>
+\* <strong>Requires the browser extension <a href="https://tampermonkey.net/">Tampermonkey</a></strong>
 
 # What does this do?
 With this userscript you can import your seen/obtained (time wasted) from Bierdopje.com to Seriesfeed.com.
@@ -35,6 +32,7 @@ Check out other userscripts for Seriesfeed by me:<BR/>
     <li><a HREF="https://github.com/TomONeill/Seriesfeed-Importer">Import favourites</a></li>
     <li><a HREF="https://github.com/TomONeill/Seriesfeed-Move">Move cards on frontpage</a></li>
     <li><a HREF="https://github.com/TomONeill/Seriesfeed-Season-Separator">Season Separator</a></li>
+	<li><A HREF="https://github.com/TomONeill/seriesfeed-episode-inverter">Episode Inverter</A></li>
 </ul>
 
 # About userscripts

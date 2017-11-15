@@ -1,13 +1,15 @@
-﻿// ==UserScript==
+// ==UserScript==
 // @name         Seriesfeed Import Time Wasted
 // @namespace    https://www.seriesfeed.com
-// @version      0.2.3
+// @version      0.2.2
 // @description  Allows you to import your time wasted from Bierdopje.com.
 // @updateURL 	 https://github.com/TomONeill/Seriesfeed-Import-Time-Wasted/raw/master/SeriesfeedImportTimeWasted.user.js
 // @match        https://*.seriesfeed.com/*
 // @run-at       document-start
 // @grant        unsafeWindow
 // @grant        GM_xmlhttpRequest
+// @grant        GM_getValue
+// @grant        GM_setValue
 // @connect      www.bierdopje.com
 // @domain       www.bierdopje.com
 // @require      http://code.jquery.com/jquery-1.12.2.min.js
@@ -15,15 +17,15 @@
 // @copyright    2016+, Tom
 // ==/UserScript==
 /* jshint -W097 */
-/*global $, GM_xmlhttpRequest, Promise, console */
+/*global $, GM_xmlhttpRequest, GM_getValue, GM_setValue, Promise, console */
 'use strict';
 
 $(function() {
     // Add menu item to navigator.
     $('<li><a href="/series/import/bierdopje/time-wasted">TW Importeren</a></li>').insertAfter($('li > a[href="/series/search"]').parent());
-
+    
 	if (window.location.href === "https://www.seriesfeed.com/series/import/bierdopje/time-wasted") {
-        var col         = $('<div class="wrapper dashboard bg"><div class="container content"></div></div>');
+        var col         = $('<div class="wrapper dashboard bg"><div class="container content"></div></div>')
 		$('.contentWrapper > div.container').replaceWith(col);
         var head        = $('<h1></h1>');
 		var cardHolder  = $('<div></div>').addClass("col-md-6");
@@ -31,8 +33,8 @@ $(function() {
         var content     = $('<div></div>').addClass("blog-content");
 		var stepTitle   = $('<h3></h3>');
 		var stepcontent = $('<p></p>');
-
-		const css = '<style>'
+		
+		var css = '<style>'
 		        + '    .import-selected {'
 		        + '        border-bottom: 3px solid #447C6F;'
 		        + '    }'
@@ -83,30 +85,30 @@ $(function() {
 		        + '    }'
 		        + '</style>';
 		$('body').append(css);
-
+		
 		cardHolder.css({
 			'margin': '0 auto',
 			'float': 'none'
 		});
-
+		
 		content.css({
 			'min-height': '425px'
 		});
-
-		const steps = stepFactory(3);
-
-		const headText = 'Importeren - Time Wasted - Bierdopje.com';
+		
+		var steps = stepFactory(3);
+		
+		var headText = 'Importeren - Time Wasted - Bierdopje.com';
 		head.html(headText);
-
+		
 		col.html(head);
 		head.after(steps);
 		col.after(cardHolder);
 		cardHolder.html(card);
 		card.html(content);
-
+		
 		stepOne();
 	}
-
+	
 	function stepOne() {
 		selectStep(1);
 
@@ -124,7 +126,7 @@ $(function() {
 		stepcontent.after(userProfile);
 
 		getCurrentBierdopjeUsername().then(function(username) {
-			localStorage.setItem("sftw.username", username);
+			GM_setValue("username", username);
 
 			getBierdopjeAvatarUrlByUsername(username).then(function(avatarUrl) {
 				var login = '<a href="http://www.bierdopje.com/" target="_blank">Inloggen</a>';
@@ -158,7 +160,7 @@ $(function() {
 	function stepTwo() {
 		selectStep(2);
 
-		var username = localStorage.getItem("sftw.username");
+		var username = GM_getValue("username");
 
 		var titleCardText = 'Favorieten selecteren';
 		var innerCardText = 'Je Time Wasted is gebaseerd op de series die je afgevinkt hebt als "gezien". Zowel de "gezien" als de "verkregen" status zal worden geïmporteerd. Vink de series aan waarvan je deze statussen wilt importeren.';
@@ -188,14 +190,14 @@ $(function() {
 		getBierdopjeTimeWastedByUsername(username).then(function(bdTimeWasted) {
 			var timeWastedLength = bdTimeWasted.length;
 			var seriesList = [];
-
+			
 			function getBierdopjeTimeWastedItem(index) {
 				return new Promise(function(resolve) {
 					var bdTimeWastedRow = bdTimeWasted[index];
-
+					
 					var bdShowName = $(bdTimeWastedRow).find('td a').html();
 					var bdShowSlug = $(bdTimeWastedRow).find('td a').attr('href');
-
+					
 					getTVDBIdByBierdopjeShowSlug(bdShowSlug).then(function(tvdbId) {
 							getSeriesfeedShowDataByTVDBId(tvdbId).success(function (sfShowData) {
 								var sfSeriesId   = sfShowData.id;
@@ -221,34 +223,34 @@ $(function() {
 									status     = 'fa-check';
 									checkbox   = '<fieldset><input type="checkbox" name="series_' + sfSeriesId + '" id="series_' + sfSeriesId + '" class="hideCheckbox"><label for="series_' + sfSeriesId + '"><span class="check" data-series-id="' + sfSeriesId + '" data-series-name="' + sfSeriesName + '" data-show-slug="' + bdShowSlug + '" data-series-url="' + seriesUrl + '"></span></label></fieldset>';
 								}
-
+								
 								var item = [sfSeriesName, seriesUrl, status, checkbox];
 								seriesList.push(item);
 
 								var progress = (index/(timeWastedLength - 2)) * 100;
 								progressBar.css('width', Math.round(progress) + "%");
-
+								
 								resolve();
 							}).error(function(error) {
 								console.log("Could not connect to Seriesfeed to convert TVDB id " + tvdbId + ".");
 
 								var progress = (index/(timeWastedLength - 2)) * 100;
 								progressBar.css('width', Math.round(progress) + "%");
-
+								
 								resolve();
 							});
 					}, function(error) {
 						console.log("Could not connect to Bierdopje to get the TVDB of " + bdShowName + ".");
-
+						
 						resolve();
 					});
 				});
 			}
-
+			
 			var MAX_ASYNC_CALLS = 2;
 			var current_async_calls = 0;
 			var totalTimeWasted = (timeWastedLength - 1);
-
+			
 			Promise.resolve(1).then(function loop(i) {
 				if (current_async_calls < MAX_ASYNC_CALLS) {
 					if (i < totalTimeWasted) {
@@ -273,7 +275,7 @@ $(function() {
 						setTimeout(checkActiveCalls, 80);
 					}
 				}
-
+				
 				checkActiveCalls();
 			}).catch(function(error) {
 				console.log("Unknown error: ", error);
@@ -281,7 +283,7 @@ $(function() {
 		}, function(error) {
 			console.log("Could not connect to Bierdopje to the Time Wasted of " + username + ".");
 		});
-
+		
 		function showResults(seriesList) {
 			seriesList.sort();
 			seriesList.reverse();
@@ -293,7 +295,7 @@ $(function() {
 				var checkbox     = seriesList[i][3];
 
 				var item = '<tr><td>' + checkbox + '</td><td><a href="' + sfSeriesUrl + '" target="_blank">' + sfSeriesName + '</a></td><td><i class="fa ' + status + '"></i></td></tr>';
-				tableHeader.after(item);
+				tableHeader.after(item);	
 			}
 
 			loadingData.html(seriesTable);
@@ -327,7 +329,7 @@ $(function() {
 					selectedSeries.push(seriesItem);
 				});
 
-				localStorage.setItem("sftw.selectedSeries", JSON.stringify(selectedSeries));
+				GM_setValue("selectedSeries", selectedSeries);
 
 				stepThree();
 			});
@@ -337,8 +339,7 @@ $(function() {
 	function stepThree() {
 		selectStep(3);
 
-		var selectedSeriesParsed = localStorage.getItem("sftw.selectedSeries");
-        var selectedSeries = JSON.parse(selectedSeriesParsed);
+		var selectedSeries = GM_getValue("selectedSeries");
 
 		content.css('min-height', '');
 
@@ -386,16 +387,16 @@ $(function() {
 			});
 
 			var detailsTable = $('#details');
-
+			
 			var seriesLength = selectedSeries.length;
-
+			
 			function setTimeWasted(index) {
 				return new Promise(function(resolve) {
 					var sfSeriesId  = selectedSeries[index][3];
 					var showName    = selectedSeries[index][0];
 					var bdShowSlug  = selectedSeries[index][1];
 					var sfSeriesUrl = selectedSeries[index][2];
-
+					
 					var tableItem = '<tr><td><a href="' + sfSeriesUrl + '" target="_blank">' + showName + '</a></td><td id="show_' + sfSeriesId + 'seasons"></td><td id="show_' + sfSeriesId + 'episodes"></td></tr>';
 					details.append(tableItem);
 
@@ -412,7 +413,7 @@ $(function() {
 									var episodeList = [];
 									var tableEpisodes = $('#show_' + sfSeriesId + 'episodes');
 									var bdShowEpisodesLength = bdShowEpisodes.length;
-
+									
 									tableEpisodes.html("1 van " + (bdShowEpisodesLength - 1));
 
 									function setTimeWastedSeasonEpisode(ei) {
@@ -498,7 +499,7 @@ $(function() {
 											resolve();
 										});
 									}
-
+									
 									var MAX_ASYNC_CALLS = 1;
 									var current_async_calls = 0;
 
@@ -530,18 +531,18 @@ $(function() {
 									}).catch(function(error) {
 										console.log("Unknown error: ", error);
 									});
-
+									
 									function showSeasonEpisodeResults() {
 										resolve();
 									}
-
+									
 									tableSeasons.html(si + " van " + (seasonsLength - 1));
 								}, function(error) {
 									console.log("Could not connect to Bierdopje to get seasons of url http://www.bierdopje.com/shows" + bdShowSlug + ".");
 								});
 							});
 						}
-
+						
 						var MAX_ASYNC_CALLS = 1;
 						var current_async_calls = 0;
 
@@ -573,20 +574,20 @@ $(function() {
 						}).catch(function(error) {
 							console.log("Unknown error: ", error);
 						});
-
+						
 						function showSeasonResults() {
 							resolve();
 						}
-
+						
 					}, function(error) {
 						console.log("Could not connect to Bierdopje to get seasons of url http://www.bierdopje.com/shows" + bdShowSlug + ".");
 					});
 				});
 			}
-
+			
 			var MAX_ASYNC_CALLS = 1;
 			var current_async_calls = 0;
-
+			
 			Promise.resolve(0).then(function loop(i) {
 				if (current_async_calls < MAX_ASYNC_CALLS) {
 					if (i < seriesLength) {
@@ -615,7 +616,7 @@ $(function() {
 			}).catch(function(error) {
 				console.log("Unknown error: ", error);
 			});
-
+			
 			function showResults() {
 				favImportBtn.prop('disabled', false);
 				favImportBtn.attr('value', "Favorieten Importeren");
@@ -624,16 +625,16 @@ $(function() {
 			}
 		});
 	}
-
+	
 	function stepFactory(steps) {
 		var stepList = $('<div></div>');
 		stepList.addClass("import-steps");
-
+		
 		for (var i = 1; i <= steps; i++) {
 			var div  = $('<div></div>');
 			var a    = $('<a></a>');
 			var h3   = $('<h3></h3>');
-
+			
 			div.addClass("import-step");
 			div.css({
 				'text-align': 'center',
@@ -642,79 +643,79 @@ $(function() {
 				'padding': '10px',
 				'margin' : '15px'
 			});
-
+			
 			a.css({
 				'text-align': 'center',
 				'text-decoration': 'none'
 			});
-
+			
 			div.append(a);
 			a.append(h3);
 			h3.append("Stap " + i);
-
+			
 			stepList.append(div);
 		}
-
+		
 		return stepList;
 	}
-
+	
 	function selectStep(step) {
 		$(".import-step").each(function(i, current) {
 			var selected = "import-selected";
 			var current = $(current);
-
+			
 			if (current.hasClass(selected)) {
 				current.removeClass(selected);
 			}
-
+			
 			if ((i+1) === step) {
 				current.addClass(selected);
 			}
 		});
 	}
-
+	
 	function userFactory(user, avatarUrl) {
 		var div = $('<div></div>');
 		var img = $('<img></img>');
 		var h3  = $('<h3></h3>');
-
+		
 		div.addClass("col-md-12 user-img-container");
 		img.addClass("user-img");
 		h3.addClass("user-name");
-
+		
 		img.attr('src', avatarUrl);
 		h3.append(user);
-
+		
 		div.append(img);
 		div.append(h3);
-
+		
 		return div;
 	}
-
+	
 	function nextStepFactory(text, id) {
 		var a = $('<a></a>');
-
+		
 		a.addClass("readMore");
 		a.attr('id', id);
-
+		
 		a.css({
 			'position': 'absolute',
 			'bottom'  : '20px',
 			'right'   : '40px',
 			'cursor'  : 'pointer'
 		});
-
+		
 		a.append(text);
-
+		
 		return a;
 	}
-
+	
 	function toggleAllCheckboxes() {
 		$('.check').each(function () {
             $(this).click();
 		});
 	}
-
+	
 	function getCurrentBierdopjeUsername() {
 		return new Promise(function(resolve, reject) {
 			GM_xmlhttpRequest({
@@ -731,7 +732,7 @@ $(function() {
 			});
 		});
 	}
-
+	
 	function getBierdopjeAvatarUrlByUsername(username) {
 		return new Promise(function(resolve, reject) {
 			GM_xmlhttpRequest({
@@ -748,7 +749,7 @@ $(function() {
 		    });
 		});
 	}
-
+	
 	function getBierdopjeTimeWastedByUsername(username) {
 		return new Promise(function(resolve, reject) {
 			GM_xmlhttpRequest({
@@ -765,7 +766,7 @@ $(function() {
 			});
 		});
 	}
-
+	
 	function getTVDBIdByBierdopjeShowSlug(showSlug) {
 		return new Promise(function(resolve, reject) {
 			GM_xmlhttpRequest({
@@ -782,7 +783,7 @@ $(function() {
 			});
 		});
 	}
-
+	
 	function getBierdopjeShowSeasonsByShowSlug(showSlug) {
 		return new Promise(function(resolve, reject) {
 			GM_xmlhttpRequest({
@@ -799,7 +800,7 @@ $(function() {
 			});
 		});
 	}
-
+	
 	function getBierdopjeShowSeasonEpisodesBySeasonUrl(seasonUrl) {
 		return new Promise(function(resolve, reject) {
 			GM_xmlhttpRequest({
@@ -817,7 +818,7 @@ $(function() {
 			});
 		});
 	}
-
+			
 	function getSeriesfeedShowDataByTVDBId(tvdbId){
 		return $.ajax({
 			type: "POST",
@@ -829,7 +830,7 @@ $(function() {
 			dataType: "json"
 		});
 	}
-
+	
 	function getEpisodeId(seriesId, episodeTag) {
 		return $.ajax({
 			type: "POST",
@@ -842,7 +843,7 @@ $(function() {
 			dataType: "json"
 		});
 	}
-
+	
 	function addSeasonStatus(seriesId, seasonId, type, check) {
 		return $.ajax({
 			type: "POST",
@@ -856,7 +857,7 @@ $(function() {
 			dataType: "json"
 		});
 	}
-
+	
 	function addEpisodeStatus(episodeId, type) {
 		return $.ajax({
 			type: "POST",
@@ -869,11 +870,11 @@ $(function() {
 			dataType: "json"
 		});
 	}
-
+	
 	function getCurrentSeriesfeedUser() {
 		var user = $('.nav .dropdown .dropdown-menu:eq(1) li a').attr('href').replace("/user/", "");
 		user = user.replace("/", "");
-
+		
 		return user;
 	}
 });
