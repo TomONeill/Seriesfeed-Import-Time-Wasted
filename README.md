@@ -1,3 +1,6 @@
+# DEPRECATION WARNING
+This userscript is deprecated. Please install <A HREF="https://github.com/TomONeill/seriesfeed-transporter">Seriesfeed Transporter</A> instead.
+
 # Seriesfeed Import Time Wasted
 Import your time wasted from Bierdopje.com to Seriesfeed.com
 <br/>
@@ -29,14 +32,14 @@ At the last step, the actual importing is being done. Every episode of every ser
 # Other userscripts
 Check out other userscripts for Seriesfeed by me:<BR/>
 <ul>
-    <li><a HREF="https://github.com/TomONeill/Seriesfeed-Importer">Import favourites</a></li>
-    <li><a HREF="https://github.com/TomONeill/Seriesfeed-Move">Move cards on frontpage</a></li>
-    <li><a HREF="https://github.com/TomONeill/Seriesfeed-Season-Separator">Season Separator</a></li>
-	<li><A HREF="https://github.com/TomONeill/seriesfeed-episode-inverter">Episode Inverter</A></li>
+    <li><A HREF="https://github.com/TomONeill/seriesfeed-transporter">Seriesfeed Transporter</A>: Import and export your favourites and time wasted.</li>
+    <li><A HREF="https://github.com/TomONeill/Seriesfeed-Move">Seriesfeed Move</A>: drag and drop frontpage items to your liking.</li>
+    <li><A HREF="https://github.com/TomONeill/seriesfeed-episode-inverter">Seriesfeed Episode Inverter</A>: Choose whether episodes are sorted ascending or descending.</li>
+    <li><A HREF="https://github.com/TomONeill/Seriesfeed-Season-Separator">Seriesfeed Season Separator</A>: Draws a thick line between seasons.</li>
 </ul>
 
 # About userscripts
-This is a userscript which you can use in combination with a browser extension to inject JavaScript (<a href="https://addons.mozilla.org/firefox/addon/greasemonkey/">Greasemonkey</a> - FireFox, <a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo">Tampermonkey</a> - Chrome).
+This is a userscript which you can use in combination with a browser extension (<a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo">Tampermonkey</a>) to inject JavaScript.
 This means new functionality can be added, or bugs can be fixed on (discontinued) websites.<br />
 
 # Donate
